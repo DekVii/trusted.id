@@ -50,7 +50,7 @@
                     <!-- End Single Content -->
                     <!-- Start Single Content -->
                     <div id="register" role="tabpanel" class="single__tabs__panel tab-pane">
-                        <form action="<?php echo base_url('index.php/auth/login_procces') ?>" class="login" method="post">
+                        <form action="<?php echo base_url('index.php/main/input_process') ?>" class="login" method="post">
                             <input type="text" placeholder="Your Name*" name="name" class="login" required="required">
                             <input type="text" placeholder="Your Email* "name="email" class="login" required="required">
                             <input type="password" placeholder="Your Password*" name="password" class="login" required="required">

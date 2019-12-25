@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2019 at 05:18 PM
+-- Generation Time: Dec 25, 2019 at 05:02 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pbd`
+-- Database: `trusted.id`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,13 @@ CREATE TABLE `barang` (
   `Deskripsi_barang` varchar(1000) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`Id_barang`, `Nama_barang`, `Harga`, `Stock`, `Deskripsi_barang`) VALUES
+(1, 'Oreo', '200000', 50, 'Endes');
+
 -- --------------------------------------------------------
 
 --
@@ -43,7 +50,7 @@ CREATE TABLE `barang` (
 --
 
 CREATE TABLE `chat` (
-  `Id_chat` varchar(10) NOT NULL,
+  `Id_chat` int(11) NOT NULL,
   `Id_barang` varchar(10) NOT NULL,
   `Id_pelanggan` varchar(10) NOT NULL,
   `Id_penjual` varchar(10) NOT NULL,
@@ -56,37 +63,24 @@ CREATE TABLE `chat` (
 --
 -- Table structure for table `detail_barang`
 --
-
-CREATE TABLE `detail_barang` (
-  `Id_barang` int(11) NOT NULL,
-  `Foto` int(11) NOT NULL,
-  `Id_kategori` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Error reading structure for table trusted.id.detail_barang: #1932 - Table 'trusted.id.detail_barang' doesn't exist in engine
+-- Error reading data for table trusted.id.detail_barang: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `trusted.id`.`detail_barang`' at line 1
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `detail_kategori`
 --
-
-CREATE TABLE `detail_kategori` (
-  `Id_barang` int(11) NOT NULL,
-  `Id_users` int(11) NOT NULL,
-  `Id_kategori` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Error reading structure for table trusted.id.detail_kategori: #1932 - Table 'trusted.id.detail_kategori' doesn't exist in engine
+-- Error reading data for table trusted.id.detail_kategori: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `trusted.id`.`detail_kategori`' at line 1
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `detail_pemesanan`
 --
-
-CREATE TABLE `detail_pemesanan` (
-  `Id_pemesanan` int(11) NOT NULL,
-  `Id_barang` int(11) NOT NULL,
-  `Total_item` int(11) NOT NULL,
-  `Total_harga` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Error reading structure for table trusted.id.detail_pemesanan: #1932 - Table 'trusted.id.detail_pemesanan' doesn't exist in engine
+-- Error reading data for table trusted.id.detail_pemesanan: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `trusted.id`.`detail_pemesanan`' at line 1
 
 -- --------------------------------------------------------
 
@@ -97,6 +91,23 @@ CREATE TABLE `detail_pemesanan` (
 CREATE TABLE `kategori` (
   `Id_kategori` int(11) NOT NULL,
   `Nama_kategori` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pelanggan`
+--
+
+CREATE TABLE `pelanggan` (
+  `Id_pelanggan` int(11) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Username` varchar(25) NOT NULL,
+  `Password` varchar(10) NOT NULL,
+  `Nama_pelanggan` varchar(50) NOT NULL,
+  `Kontak_pelanggan` varchar(50) NOT NULL,
+  `Alamat_pelanggan` varchar(150) NOT NULL,
+  `jk_pelanggan` char(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -181,10 +192,10 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `Username` varchar(20) NOT NULL,
   `Password` varchar(10) NOT NULL,
-  `Nama_penjual` varchar(25) NOT NULL,
+  `Nama` varchar(25) NOT NULL,
   `Email` varchar(30) NOT NULL,
-  `Kontak_penjual` varchar(30) NOT NULL,
-  `Alamat_penjual` varchar(200) NOT NULL,
+  `Kontak` varchar(30) NOT NULL,
+  `Alamat` varchar(200) NOT NULL,
   `Last_in` time DEFAULT NULL,
   `Foto_user` varchar(25) NOT NULL,
   `level_user` enum('admin','user') NOT NULL DEFAULT 'user',
@@ -195,8 +206,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `Username`, `Password`, `Nama_penjual`, `Email`, `Kontak_penjual`, `Alamat_penjual`, `Last_in`, `Foto_user`, `level_user`, `Jenis_kelamin`) VALUES
-(3, 'Bochil', 'cec1746b61', 'Bochil', 'indah@gmail.com', '0812533549', 'jkt', NULL, '', 'user', ''),
+INSERT INTO `users` (`id`, `Username`, `Password`, `Nama`, `Email`, `Kontak`, `Alamat`, `Last_in`, `Foto_user`, `level_user`, `Jenis_kelamin`) VALUES
+(3, 'Bochil', 'bocil', 'Bochil', 'indah@gmail.com', '0812533549', 'jkt', NULL, '', 'user', ''),
 (2, 'admin', 'admin', 'Bochil', 'Bochil@gmail.com', '0812533548', 'diy', NULL, '', 'admin', '');
 
 -- --------------------------------------------------------
@@ -232,6 +243,12 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`Id_kategori`);
+
+--
+-- Indexes for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  ADD PRIMARY KEY (`Id_pelanggan`);
 
 --
 -- Indexes for table `pembayaran`
@@ -280,10 +297,64 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `barang`
+--
+ALTER TABLE `barang`
+  MODIFY `Id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `Id_kategori` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  MODIFY `Id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `Id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  MODIFY `Id_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pengiriman`
+--
+ALTER TABLE `pengiriman`
+  MODIFY `Id_pengiriman` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `Id_review` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  MODIFY `Id_wishlist` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

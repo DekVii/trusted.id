@@ -60,4 +60,24 @@ class auth extends CI_Controller {
 		}	
 
 	}
+
+	public function register(){
+		$post = $this->input->post(null, TRUE);
+		if(isset($post['register']))
+		{
+			if($query->num_rows() > 0)
+			{
+				$row = $query->row();
+				$params = array(
+					'Id' => $row->Id,
+					'level_user' => $row->level_user
+					// 'id_jadwal' => $row->id_jadwal
+				);
+				$this->session->set_userregister($params);
+				$level_user = $row->level_user;
+			}
+			
+		}
+		
+	}
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2019 at 06:09 PM
+-- Generation Time: Dec 23, 2019 at 07:12 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -29,13 +29,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `barang` (
-  `Id_barang` varchar(10) NOT NULL,
+  `Id_barang` int(11) NOT NULL,
   `Nama_barang` varchar(50) NOT NULL,
-  `Foto` text NOT NULL,
-  `Harga_barang` varchar(50) NOT NULL,
+  `Harga` varchar(50) NOT NULL,
   `Stock` int(11) NOT NULL,
-  `Deskripsi_barang` varchar(1000) NOT NULL,
-  `Id_sub_kategori` varchar(10) NOT NULL
+  `Deskripsi_barang` varchar(1000) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -45,7 +43,7 @@ CREATE TABLE `barang` (
 --
 
 CREATE TABLE `chat` (
-  `Id_chat` varchar(10) NOT NULL,
+  `Id_chat` int(11) NOT NULL,
   `Id_barang` varchar(10) NOT NULL,
   `Id_pelanggan` varchar(10) NOT NULL,
   `Id_penjual` varchar(10) NOT NULL,
@@ -84,10 +82,8 @@ CREATE TABLE `chat` (
 --
 
 CREATE TABLE `kategori` (
-  `Id_kategori` varchar(10) NOT NULL,
-  `Nama_kategori` varchar(20) NOT NULL,
-  `Id_barang` varchar(10) NOT NULL,
-  `Id_sub_kategori` varchar(10) NOT NULL
+  `Id_kategori` int(11) NOT NULL,
+  `Nama_kategori` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -97,7 +93,7 @@ CREATE TABLE `kategori` (
 --
 
 CREATE TABLE `pelanggan` (
-  `Id_pelanggan` varchar(10) NOT NULL,
+  `Id_pelanggan` int(11) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Username` varchar(25) NOT NULL,
   `Password` varchar(10) NOT NULL,
@@ -132,10 +128,8 @@ CREATE TABLE `pemesanan` (
   `Id_pemesanan` int(11) NOT NULL,
   `Nama_barang` int(11) NOT NULL,
   `Tgl_pemesanan` int(11) NOT NULL,
-  `Total_item` int(11) NOT NULL,
   `Status_pemesanan` int(11) NOT NULL,
-  `Id_barang` varchar(10) NOT NULL,
-  `Id_pembayaran` varchar(10) NOT NULL
+  `Id_pelanggan` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -148,33 +142,12 @@ CREATE TABLE `pengiriman` (
   `Id_pengiriman` int(11) NOT NULL,
   `Tgl_pengiriman` date NOT NULL,
   `Tgl_estimasi` date NOT NULL,
+  `Opsi_pengiriman` varchar(25) NOT NULL,
   `Biaya_kirim` varchar(20) NOT NULL,
-  `Status_pengiriman` varchar(15) NOT NULL
+  `Status_pengiriman` varchar(15) NOT NULL,
+  `Resi_pengiriman` varchar(25) NOT NULL,
+  `Id_pembayaran` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `penjual`
---
-
-CREATE TABLE `penjual` (
-  `Id_penjual` varchar(10) NOT NULL,
-  `Username` varchar(20) NOT NULL,
-  `Password` varchar(10) NOT NULL,
-  `Nama_penjual` varchar(25) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `Kontak_penjual` varchar(30) DEFAULT NULL,
-  `Alamat_penjual` varchar(200) DEFAULT NULL,
-  `Last_in` time NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `penjual`
---
-
-INSERT INTO `penjual` (`Id_penjual`, `Username`, `Password`, `Nama_penjual`, `Email`, `Kontak_penjual`, `Alamat_penjual`, `Last_in`) VALUES
-('', 'Bochil', '7110eda4d0', 'Bochil', 'Bochil@gmail.com', '', '', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -189,18 +162,6 @@ CREATE TABLE `review` (
   `Isi_review` varchar(200) NOT NULL,
   `Id_barang` varchar(10) NOT NULL,
   `Id_pengiriman` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sub_kategori`
---
-
-CREATE TABLE `sub_kategori` (
-  `Id_sub_kategori` varchar(10) NOT NULL,
-  `Nama_kategori` varchar(20) NOT NULL,
-  `Id_barang` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -301,30 +262,16 @@ ALTER TABLE `pengiriman`
   ADD PRIMARY KEY (`Id_pengiriman`);
 
 --
--- Indexes for table `penjual`
---
-ALTER TABLE `penjual`
-  ADD PRIMARY KEY (`Id_penjual`);
-
---
 -- Indexes for table `review`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`Id_review`);
 
 --
--- Indexes for table `sub_kategori`
---
-ALTER TABLE `sub_kategori`
-  ADD PRIMARY KEY (`Id_sub_kategori`),
-  ADD KEY `Id_kategori` (`Id_barang`);
-
---
 -- Indexes for table `toko`
 --
 ALTER TABLE `toko`
-  ADD PRIMARY KEY (`Id_penjual`),
-  ADD KEY `Id_penjual` (`Id_penjual`);
+  ADD PRIMARY KEY (`Id_penjual`);
 
 --
 -- Indexes for table `users`
@@ -343,10 +290,64 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `barang`
+--
+ALTER TABLE `barang`
+  MODIFY `Id_barang` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `Id_kategori` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  MODIFY `Id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `Id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  MODIFY `Id_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pengiriman`
+--
+ALTER TABLE `pengiriman`
+  MODIFY `Id_pengiriman` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `Id_review` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  MODIFY `Id_wishlist` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
