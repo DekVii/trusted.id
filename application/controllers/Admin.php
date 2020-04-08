@@ -25,31 +25,56 @@ class Admin extends CI_Controller {
 	public function index()
 	{
 		// load view login-register
-		$this->load->view('/back/home');
+		$result = array(
+			'isi' => '/back/home',
+		);
+		$this->load->view('back/head_footer', $result);
 	}
 	
 	
 	public function profile(){
-		$this->load->view('back/profile');
+		$result = array(
+			'isi' => '/back/profile',
+		);
+		$this->load->view('back/head_footer', $result);
 	}
 
-	public function order(){
-		$this->load->view('back/order');
+
+	
+
+	// --------------------------------------------- Purchase --------------------------------------------------
+
+
+	public function list_purchase(){
+		$result = array(
+			'isi' => '/back/list_ph',
+		);
+		$this->load->view('back/head_footer', $result);
 	}
 
-	public function product(){
-		$this->load->view('back/product');
-	}
+	
+
+	// ---------------------------------------------   --------------------------------------------------
 
 	public function customers(){
-		$this->load->view('back/customers');
+		$result = array(
+			'isi' => '/back/customers',
+		);
+		$this->load->view('back/head_footer', $result);
 	}
 
-	public function chat(){
-		$this->load->view('back/chat');
+	public function report(){
+		
+		$result = array(
+			'isi' => '/back/report',
+		);
+		$this->load->view('back/head_footer', $result);
 	}
 
 	public function load(){
-		$this->load->view('back/load');
+		$result = array(
+			'isi' => '/back/load',
+		);
+		$this->load->view('back/head_footer', $result);
 	}
 }

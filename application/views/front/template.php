@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <li><a href="<?= base_url('index.php/main/wishlist')?>">wishlist</a></li>
                                             <li><a href="<?= base_url('index.php/main/checkout')?>">checkout</a></li>
                                             <li><a href="<?= base_url('index.php/main/team')?>">team</a></li>
-                                            <li><a href="<?= base_url('index.php/main/account')?>">login & register</a></li>
+                                            <li><a href="<?= base_url('index.php/auth/login')?>">login & register</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="<?= base_url('index.php/main/contact')?>">contact</a></li>
@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <li><a href="<?= base_url('index.php/main/wishlist')?>">wishlist</a></li>
                                             <li><a href="<?= base_url('index.php/main/checkout')?>">checkout</a></li>
                                             <li><a href="<?= base_url('index.php/main/team')?>">team</a></li>
-                                            <li><a href="<?= base_url('index.php/main/account')?>">login & register</a></li>
+                                            <li><a href="<?= base_url('index.php/auth/login')?>">login & register</a></li>
                                         </ul>
                                         </li>
                                         <li><a href="<?= base_url('index.php/main/contact')?>">contact</a></li>
@@ -117,7 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col-md-3 col-lg-2 col-6">  
                             <ul class="menu-extra">
                                 <li class="search search__open d-none d-sm-block" data-toggle="tooltip" data-placement="bottom" title="Search"><span class="ti-search"></span></li>
-                                <li><a href="<?= base_url('index.php/main/account')?>" data-toggle="tooltip" data-placement="bottom" title="Account"><span class="ti-user"></span></a></li>
+                                <li><a href="<?= base_url('index.php/auth/login')?>" data-toggle="tooltip" data-placement="bottom" title="Account"><span class="ti-user"></span></a></li>
                                 <li class="cart__menu"><span class="ti-shopping-cart" data-toggle="tooltip" data-placement="bottom" title="Cart"></span></li>
                                 <li class="toggle__menu d-none d-md-block" data-toggle="tooltip" data-placement="bottom" title="Menu"><span class="ti-menu"></span></li>
                             </ul>

@@ -14,19 +14,19 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="InputUsername">Username</label>
-                                <input type="text" class="form-control" name="username" id="username">
+                                <input type="text" class="form-control" name="username" id="username" value="<?= $data_user->username ?>">
                             </div>
                             <div class="form-group">
                                 <label for="InputNama">Nama</label>
-                                <input type="text" class="form-control" name="nama" id="nama">
+                                <input type="text" class="form-control" name="nama" id="nama" value="<?= $data_user->nama ?>">
                             </div>
                             <div class="form-group">
                                 <label for="InputKontak">Kontak</label>
-                                <input type="text" class="form-control" name="Kontak" id="Kontak">
+                                <input type="text" class="form-control" name="Kontak" id="Kontak" value="<?= $data_user->kontak ?>">
                             </div>
                             <div class="form-group">
                                 <label for="Alamat">Alamat</label>
-                                <textarea class="form-control" name="alamat" id="alamat"></textarea>
+                                <textarea class="form-control" name="alamat" id="alamat" value="<?= $data_user->alamat ?>"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="InputJK">Jenis Kelamin</label>
@@ -37,30 +37,19 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                            <label for="LevelUser">Kategori User</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="user" id="level_user" value="user">
-                                    <label class="form-check-label" for="user">
-                                       User
-                                    </label>
-                                </div>
-                                <div class="form-check disabled">
-                                    <input class="form-check-input" type="radio" name="level_user" id="level_user" value="admin" disabled>
-                                    <label class="form-check-label" for="admin">
-                                        Admin
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="foto">Foto User</label>
                                 <div class="input-group">
-                                        <input type="file" class="custom-file-input" id="foto_produk" name="foto_produk">
+                                        <input type="file" class="custom-file-input" id="foto_user" name="foto_user" value="<?= $data_user->username ?>">
                                         <label class="custom-file-label" for="foto">Choose file</label>
                                     </div>
                                 </div>
                             </div>
                         <!-- /.card-body -->
+                        
+                        <div class="card-footer">
+                            <input type="hidden" name="id" id="id" value="<?= $data_user->Id ?>" />
                             <button type="submit" class="btn btn-outline-secondary">Simpan Data</button>
+                            </div>
                         </div>
                     </form>
                 </div>

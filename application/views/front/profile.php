@@ -27,24 +27,48 @@
                             <div class="our-recent-post-wrap">
                                 <!-- Start Single Post -->
                                 <div class="single-recent-post">
-                                    <div class="recent-thumb">
-                                        <a>Nama</a>
+                                    <div class="col-2 recent-thumb">
+                                        <a>Username</a>
                                     </div>
                                     <div class="recent-details">
                                         <div class="recent-post-dtl">
-                                            <h6><?php echo base_url('index.php/Main/p_desc/data_akun') ?></h6>
+                                            <h6><?php echo $this->session->userdata('username')?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- End Single Post -->
                                 <!-- Start Single Post -->
-                                <div class="row single-recent-post">
+                                <div class="single-recent-post">
+                                    <div class="col-2 recent-thumb">
+                                        <a>Nama</a>
+                                    </div>
+                                    <div class="recent-details">
+                                        <div class="recent-post-dtl">
+                                            <h6><?php echo $this->session->userdata('nama')?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Post -->
+                                <!-- Start Single Post -->
+                                <div class="single-recent-post">
+                                    <div class="col-2 recent-thumb">
+                                        <a>Kontak</a>
+                                    </div>
+                                    <div class="recent-details">
+                                        <div class="recent-post-dtl">
+                                            <h6><?php echo $this->session->userdata('kontak')?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Post -->
+                                <!-- Start Single Post -->
+                                <div class="single-recent-post">
                                     <div class="col-2 recent-thumb">
                                         <a>Alamat</a>
                                     </div>
-                                    <div class="col- 5 recent-details">
+                                    <div class=" recent-details">
                                         <div class="recent-post-dtl">
-                                            <h6><a href="<?= base_url('index.php/main/details')?>"></a></h6>
+                                            <h6><?php echo $this->session->userdata('alamat')?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -278,11 +302,10 @@
                         <div class="our-category-area mt--60">
                             <h2 class="section-title-2">Setting profile</h2>
                             <ul class="categore-menu">
-                                <li><a href="<?= base_url('index.php/Main/edit')?>"><i class="zmdi "><span class="ti-settings"></span></i>Edit Profile</a></li>
-                                <li><a href="<?= base_url('index.php/Main/')?>"><i class="zmdi "><span class="ti-upload"></span></i>Add New Product</a></li>
-                                <li><a href="<?= base_url('index.php/Main/')?>"><i class="zmdi "><span class="ti-list"></span></i>Edit List Product</a></li>
-                                <li><a href="<?= base_url('index.php/Main/')?>"><i class="zmdi "><span class="ti-power-off"></span></i>Logout</a></li>
-                                <li><a href="<?= base_url('index.php/Main/')?>"><i class="zmdi "><span class="ti-"></span></i></a></li>
+                                <li><a href="<?= base_url('index.php/account/edit')?>"><i class="zmdi "><span class="ti-settings"></span></i>Edit Profile</a></li>
+                                <li><a href="<?= base_url('index.php/product/add')?>"><i class="zmdi "><span class="ti-upload"></span></i>Add New Product</a></li>
+                                <li><a href="<?= base_url('index.php/product/add')?>"><i class="zmdi "><span class="ti-list"></span></i>Edit List Product</a></li>
+                                <li><a href="<?= base_url('index.php/auth/logout')?>"><i class="zmdi "><span class="ti-power-off"></span></i>Logout</a></li>
                             </ul>                        
                         </div>                        
                         <!-- End Category Area -->

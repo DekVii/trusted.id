@@ -1,68 +1,60 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class Account_model extends CI_Model {
-        
-    function get_user(){
-        $id = $this->session->userdata('id');
 
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('level_user');
-        $this->db->where('id', $id);
+	function get_user($id, $level) {
+		// var_dump($id); exit();
+		// $id = $this->session->userdata('id');
 
-        $query = $this->db->get();
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('level_user', $level);
+		$this->db->where('id', $id);
 
-        return $query;
+		$query=$this->db->get()->result();
 
+		return $query;
+
+	}
+
+    function get_account($id) {
+		$this->db->select('users.*');
+		$this->db->from('users');
+		$this->db->where('id', $id);
+
+		$query=$this->db->get();
+		return $query->row();
+	}
+
+	function insert_account($nama, $username, $email, $kontak, $alamat, $foto, $password) {
+		$data = array(
+            'username'=> $username,
+			'nama'=> $nama,
+			'kontak'=> $kontak,
+			'alamat'=> $alamat,
+			'jenis_kelamin'=> $jenis_kelamin,
+			'level_user'=> $level_user,
+			'foto_user'=> $foto);
+		$this->db->insert('users', $data);
+	}
+
+
+	function update_profile($id, $data) {
+		$this->db->where('id', $id);
+		$this->db->update('users', $data);
+	}
+
+
+    function get_all_pb() {
+		$this->db->select(' users.*, barang.*');
+		$this->db->from('users');
+		$this->db->join('toko', 'users.id = toko.id_users');
+		$this->db->join('barang', 'toko.id_barang = barang.id_barang', 'right');
+		$data=$this->db->get();
+		return $data;
     }
+    
 
-    function insert_account($nama, $username, $email, $contact, $alamat, $foto, $password){
-        $data = array(
-            'nama' => $nama,
-            'username' => $username,
-            'contact' =>$contact,
-            'alamat' => $alamat,
-            'email' => $email,
-            'foto'=> $foto
-        );
-    }
 
-    function get_account() {
-        $this->db->select('users.*');
-        $this->db->from('users');
-        $this->db->where('Email',$post['Email']);
-        $this->db->where('Password',$post['Password']);
-
-        $query = $this->db->get();
-        return $query;
-    }
-
-    function update_profile($id, $username, $email, $contact, $alamat, $foto, $password){
-        $data = array(
-            'nama' => $nama,
-            'username' => $username,
-            'contact' =>$contact,
-            'alamat' => $alamat,
-            'email' => $email,
-            'foto'=> $foto
-        );
-
-        if (!empty($password)) {
-            $data['password'] = $password;
-        }
-
-        $this->db->where('id', $id);
-        $this->db->update('users', $data);
-    }
-
-    function get_barang() {
-        $this->db->select('barang.*');
-        $this->db->from('barang');
-
-        $query = $this->db->get();
-        return $query;
-    }
-  
 }

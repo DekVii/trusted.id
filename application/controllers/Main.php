@@ -5,7 +5,7 @@ class Main extends CI_Controller {
 
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct(); 
 
 		$this->load->library('session');
 
@@ -23,83 +23,8 @@ class Main extends CI_Controller {
 	}
 	
 
-	
-
-	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Menampilkan layout profil >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-	public function profile()
-	{
-		// load view profile
-		$data_barang = $this->Account_model->get_barang();
-		$data_account = $this->Account_model->get_account();
-
-		$result = array(
-			'data_akun' => $data_account,
-			'data_barang'=> $data_barang,
-			'page' => 'front/profile',
-		);
-		$this->load->view('/front/header', $result);
-
-	}
-
-	public function input_process()
-	{
-		$data_post = array(
-			'nama'=> $this->input->post('nama'),
-			'deskripsi_produk'=> $this->input->post('deskripsi_produk'),
-		);
-		$this->load->model('Account_model');
-		$this->Account_model->insert_user($data_post);
-		$Id = $this->db->insert_id();
-		$data_user = array(
-			'id' => $Id,
-			'id' => $this->session->userdata('id'),
-			'username' => $this->input->post('username'),
-			'nama' => $this->input->post('nama'),
-			'kontak' => $this->input->post('kontak'),
-			'alamat' => $this->input->post('alamat'),
-			'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-			'level_user' => $this->input->post('level_user'),
-			'foto_user' => $this->input->post('foto_user')
-		);
-		$this->Produk_model->insert_riwayat_stok($data_user);
-		
-	}
 
 
-	//fungsi edit account
-	public function edit()
-	{	
-		$this->load->model('Account_model');
-		$data_user = $this->Account_model->get_user();
-		$data = array(
-			'user' => $data_user,
-			'page' => 'front/account/edit_account'
-		);
-		$this->load->view('front/header', $data);
-	}
-
-	public function proses_edit()
-	{
-		$Id = $this->input->post('id');
-		$data_post = array(
-			'nama' => $this->input->post('nama'),
-			'username' => $this->input->post('username'),
-			''
-
-
-		);
-	}
-
-	// fungsi logout
-	public function logout()
-	{
-		$params = array('id');
-		$this->session->unset_userdata($params);
-		redirect(base_url('index.php/auth/login'));
-	}
-
-	
 
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Menampilkan menu menu dan topping >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -127,13 +52,27 @@ class Main extends CI_Controller {
 		$this->load->view('/front/header', $result);
 	}
 
+	
+	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Menampilkan layout penjualan barang >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 	public function shop()
 	{
-		$result = array(
-			'page' => 'front/shop',
-		);
-		$this->load->view('/front/header', $result);
+		$this->load->model('Product_model');
+		
+		$data_barang = $this->Product_model->get_all_barang();
+
+			$result = array(
+				'data_barang' => $data_barang ,
+				'page' => 'front/shop',
+			);
+			$this->load->view('/front/header', $result);
+		
+		// var_dump($data_barang);exit();
 	}
+
+
+	
+	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Menampilkan menu menu dan topping >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
 	public function contact()

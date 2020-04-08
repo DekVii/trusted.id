@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="htc__login__btn mt--30">
-                                <button type="submit" name="login" class="btn btn-primary btn-block">Login</button>
+                                <button type="submit" name="login" class="btn btn-primary btn-block" >Login</button>
                             </div>
                             <div class="htc__social__connect">
                                 <h2>Or Login With</h2>

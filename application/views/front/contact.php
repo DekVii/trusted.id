@@ -28,13 +28,6 @@
                                 <h2 class="contact__title">contact info</h2>
                                 <div class="contact__address__inner">
                                     <!-- Start Single Adress -->
-                                    <div class="single__contact__address">
-                                        <div class="contact__icon">
-                                            <span class="ti-location-pin"></span>
-                                        </div>
-                                        <div class="contact__details">
-                                            <p>Location : <br> 77, seventh avenue, Brat road USA.</p>
-                                        </div>
                                     </div>
                                     <!-- End Single Adress -->
                                 </div>
@@ -55,7 +48,7 @@
                                             <span class="ti-email"></span>
                                         </div>
                                         <div class="contact__details">
-                                            <p> Mail :<br><a href="#">yourmail@gmail.com</a></p>
+                                            <p> Mail :<br><a href="#">Trusted@gmail.com</a></p>
                                         </div>
                                     </div>
                                     <!-- End Single Adress -->
@@ -81,6 +74,11 @@
                                         <div class="contact-box message">
                                             <textarea name="message"  placeholder="Massage*"></textarea>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label>foto</label>
+                                    <input type="file" name="foto" class="form-group">
                                     </div>
                                     <div class="contact-btn">
                                         <button type="submit" class="fv-btn">SEND</button>

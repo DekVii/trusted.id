@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2019 at 05:02 AM
+-- Generation Time: Dec 27, 2019 at 11:37 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -31,17 +31,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `barang` (
   `Id_barang` int(11) NOT NULL,
   `Nama_barang` varchar(50) NOT NULL,
-  `Harga` varchar(50) NOT NULL,
-  `Stock` int(11) NOT NULL,
-  `Deskripsi_barang` varchar(1000) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Harga_barang` int(11) NOT NULL,
+  `Stok` int(11) NOT NULL,
+  `Deskripsi_barang` varchar(1000) NOT NULL,
+  `foto_barang` varchar(200) DEFAULT NULL,
+  `Id_kategori` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`Id_barang`, `Nama_barang`, `Harga`, `Stock`, `Deskripsi_barang`) VALUES
-(1, 'Oreo', '200000', 50, 'Endes');
+INSERT INTO `barang` (`Id_barang`, `Nama_barang`, `Harga_barang`, `Stok`, `Deskripsi_barang`, `foto_barang`, `Id_kategori`) VALUES
+(1, 'Serum Teracotta', 1500000, 50, 'Serum Limited Edition', NULL, 1),
+(2, 'Vestibulum Dictum Magna', 1000000, 100, 'Parfum Limited Edition', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -51,36 +54,48 @@ INSERT INTO `barang` (`Id_barang`, `Nama_barang`, `Harga`, `Stock`, `Deskripsi_b
 
 CREATE TABLE `chat` (
   `Id_chat` int(11) NOT NULL,
-  `Id_barang` varchar(10) NOT NULL,
-  `Id_pelanggan` varchar(10) NOT NULL,
-  `Id_penjual` varchar(10) NOT NULL,
+  `Id_barang` int(10) NOT NULL,
+  `id` int(11) NOT NULL,
   `Tgl_chat` datetime NOT NULL,
-  `Isi_chat` varchar(200) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Isi_chat` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `detail_barang`
 --
--- Error reading structure for table trusted.id.detail_barang: #1932 - Table 'trusted.id.detail_barang' doesn't exist in engine
--- Error reading data for table trusted.id.detail_barang: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `trusted.id`.`detail_barang`' at line 1
+
+CREATE TABLE `detail_barang` (
+  `Id_barang` int(11) NOT NULL,
+  `foto_barang` varchar(200) NOT NULL,
+  `Id_kategori` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `detail_kategori`
 --
--- Error reading structure for table trusted.id.detail_kategori: #1932 - Table 'trusted.id.detail_kategori' doesn't exist in engine
--- Error reading data for table trusted.id.detail_kategori: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `trusted.id`.`detail_kategori`' at line 1
+
+CREATE TABLE `detail_kategori` (
+  `Id_barang` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `Id_kategori` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `detail_pemesanan`
 --
--- Error reading structure for table trusted.id.detail_pemesanan: #1932 - Table 'trusted.id.detail_pemesanan' doesn't exist in engine
--- Error reading data for table trusted.id.detail_pemesanan: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `trusted.id`.`detail_pemesanan`' at line 1
+
+CREATE TABLE `detail_pemesanan` (
+  `Id_pemesanan` int(11) NOT NULL,
+  `Id_barang` int(11) NOT NULL,
+  `Total_item` int(11) NOT NULL,
+  `Total_harga` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -91,24 +106,19 @@ CREATE TABLE `chat` (
 CREATE TABLE `kategori` (
   `Id_kategori` int(11) NOT NULL,
   `Nama_kategori` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `pelanggan`
+-- Dumping data for table `kategori`
 --
 
-CREATE TABLE `pelanggan` (
-  `Id_pelanggan` int(11) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `Username` varchar(25) NOT NULL,
-  `Password` varchar(10) NOT NULL,
-  `Nama_pelanggan` varchar(50) NOT NULL,
-  `Kontak_pelanggan` varchar(50) NOT NULL,
-  `Alamat_pelanggan` varchar(150) NOT NULL,
-  `jk_pelanggan` char(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+INSERT INTO `kategori` (`Id_kategori`, `Nama_kategori`) VALUES
+(1, 'Kosmetik'),
+(2, 'Tas'),
+(3, 'Elektronik'),
+(4, 'Alas Kaki'),
+(5, 'Aksesoris'),
+(6, 'Pakaian');
 
 -- --------------------------------------------------------
 
@@ -119,11 +129,11 @@ CREATE TABLE `pelanggan` (
 CREATE TABLE `pembayaran` (
   `Id_pembayaran` int(11) NOT NULL,
   `Tgl_pembayaran` date NOT NULL,
-  `Metode_pembayaran` varchar(30) NOT NULL,
+  `Metode_pembayaran` varchar(40) NOT NULL,
   `nomor_rekening` int(11) DEFAULT NULL,
-  `nama_rekening` varchar(30) DEFAULT NULL,
-  `Id_pemesanan` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `nama_rekening` varchar(40) DEFAULT NULL,
+  `Id_pemesanan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -133,11 +143,11 @@ CREATE TABLE `pembayaran` (
 
 CREATE TABLE `pemesanan` (
   `Id_pemesanan` int(11) NOT NULL,
-  `Nama_barang` int(11) NOT NULL,
-  `Tgl_pemesanan` int(11) NOT NULL,
-  `Status_pemesanan` int(11) NOT NULL,
-  `Id_pelanggan` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Nama_barang` varchar(200) NOT NULL,
+  `Tgl_pemesanan` date NOT NULL,
+  `Status_pemesanan` varchar(50) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -149,12 +159,12 @@ CREATE TABLE `pengiriman` (
   `Id_pengiriman` int(11) NOT NULL,
   `Tgl_pengiriman` date NOT NULL,
   `Tgl_estimasi` date NOT NULL,
-  `Opsi_pengiriman` varchar(25) NOT NULL,
+  `Opsi_pengiriman` varchar(100) NOT NULL,
   `Biaya_kirim` varchar(20) NOT NULL,
-  `Status_pengiriman` varchar(15) NOT NULL,
+  `Status_pengiriman` varchar(100) NOT NULL,
   `Resi_pengiriman` varchar(25) NOT NULL,
-  `Id_pembayaran` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Id_pembayaran` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -165,11 +175,11 @@ CREATE TABLE `pengiriman` (
 CREATE TABLE `review` (
   `Id_review` int(11) NOT NULL,
   `Tgl_review` date NOT NULL,
-  `Nama_pelanggan` varchar(25) NOT NULL,
-  `Isi_review` varchar(200) NOT NULL,
-  `Id_barang` varchar(10) NOT NULL,
-  `Id_pengiriman` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Nama_pelanggan` varchar(30) NOT NULL,
+  `isi_review` varchar(200) NOT NULL,
+  `Id_barang` int(11) NOT NULL,
+  `Id_pengiriman` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -178,9 +188,9 @@ CREATE TABLE `review` (
 --
 
 CREATE TABLE `toko` (
-  `Id_penjual` varchar(10) NOT NULL,
-  `Id_barang` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Id_barang` int(11) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -192,23 +202,23 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `Username` varchar(20) NOT NULL,
   `Password` varchar(10) NOT NULL,
-  `Nama` varchar(25) NOT NULL,
+  `Nama` varchar(30) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Kontak` varchar(30) NOT NULL,
-  `Alamat` varchar(200) NOT NULL,
-  `Last_in` time DEFAULT NULL,
-  `Foto_user` varchar(25) NOT NULL,
-  `level_user` enum('admin','user') NOT NULL DEFAULT 'user',
+  `Alamat` varchar(300) NOT NULL,
+  `Last_in` time DEFAULT current_timestamp(),
+  `Foto_user` varchar(250) DEFAULT NULL,
+  `level_user` enum('admin','user') NOT NULL,
   `Jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `Username`, `Password`, `Nama`, `Email`, `Kontak`, `Alamat`, `Last_in`, `Foto_user`, `level_user`, `Jenis_kelamin`) VALUES
-(3, 'Bochil', 'bocil', 'Bochil', 'indah@gmail.com', '0812533549', 'jkt', NULL, '', 'user', ''),
-(2, 'admin', 'admin', 'Bochil', 'Bochil@gmail.com', '0812533548', 'diy', NULL, '', 'admin', '');
+(1, 'Bochil', 'd033e22ae3', 'Bocil', 'Bochil@gmail.com', '02632654985', 'Condong Catur, Sleman, DIY', '00:00:00', NULL, 'admin', 'Perempuan'),
+(3, 'Indah', '12dea96fec', 'Jastip Concat', 'indah@gmail.com', '0852654985', 'Semarang', '00:00:00', NULL, 'user', 'Perempuan');
 
 -- --------------------------------------------------------
 
@@ -218,9 +228,9 @@ INSERT INTO `users` (`id`, `Username`, `Password`, `Nama`, `Email`, `Kontak`, `A
 
 CREATE TABLE `wishlist` (
   `Id_wishlist` int(11) NOT NULL,
-  `Id_barang` varchar(10) NOT NULL,
-  `Id_pelanggan` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Id_barang` int(11) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -230,13 +240,38 @@ CREATE TABLE `wishlist` (
 -- Indexes for table `barang`
 --
 ALTER TABLE `barang`
-  ADD PRIMARY KEY (`Id_barang`);
+  ADD PRIMARY KEY (`Id_barang`),
+  ADD KEY `Id_kategori` (`Id_kategori`);
 
 --
 -- Indexes for table `chat`
 --
 ALTER TABLE `chat`
-  ADD PRIMARY KEY (`Id_chat`);
+  ADD PRIMARY KEY (`Id_chat`),
+  ADD KEY `Id_barang` (`Id_barang`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `detail_barang`
+--
+ALTER TABLE `detail_barang`
+  ADD KEY `Id_barang` (`Id_barang`,`Id_kategori`),
+  ADD KEY `Id_kategori` (`Id_kategori`);
+
+--
+-- Indexes for table `detail_kategori`
+--
+ALTER TABLE `detail_kategori`
+  ADD KEY `id` (`id`),
+  ADD KEY `Id_kategori` (`Id_kategori`),
+  ADD KEY `Id_barang` (`Id_barang`);
+
+--
+-- Indexes for table `detail_pemesanan`
+--
+ALTER TABLE `detail_pemesanan`
+  ADD KEY `Id_pemesanan` (`Id_pemesanan`),
+  ADD KEY `Id_barang` (`Id_barang`);
 
 --
 -- Indexes for table `kategori`
@@ -245,40 +280,40 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`Id_kategori`);
 
 --
--- Indexes for table `pelanggan`
---
-ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`Id_pelanggan`);
-
---
 -- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD PRIMARY KEY (`Id_pembayaran`);
+  ADD PRIMARY KEY (`Id_pembayaran`),
+  ADD KEY `Id_pemesanan` (`Id_pemesanan`);
 
 --
 -- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  ADD PRIMARY KEY (`Id_pemesanan`);
+  ADD PRIMARY KEY (`Id_pemesanan`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
-  ADD PRIMARY KEY (`Id_pengiriman`);
+  ADD PRIMARY KEY (`Id_pengiriman`),
+  ADD KEY `Id_pembayaran` (`Id_pembayaran`);
 
 --
 -- Indexes for table `review`
 --
 ALTER TABLE `review`
-  ADD PRIMARY KEY (`Id_review`);
+  ADD PRIMARY KEY (`Id_review`),
+  ADD KEY `Id_barang` (`Id_barang`),
+  ADD KEY `Id_pengiriman` (`Id_pengiriman`);
 
 --
 -- Indexes for table `toko`
 --
 ALTER TABLE `toko`
-  ADD PRIMARY KEY (`Id_penjual`);
+  ADD KEY `FK` (`Id_barang`,`id`) USING BTREE,
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
@@ -290,7 +325,9 @@ ALTER TABLE `users`
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD PRIMARY KEY (`Id_wishlist`);
+  ADD PRIMARY KEY (`Id_wishlist`),
+  ADD KEY `Id_barang` (`Id_barang`),
+  ADD KEY `id` (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -300,7 +337,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `Id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -312,13 +349,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `Id_kategori` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pelanggan`
---
-ALTER TABLE `pelanggan`
-  MODIFY `Id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -355,6 +386,84 @@ ALTER TABLE `users`
 --
 ALTER TABLE `wishlist`
   MODIFY `Id_wishlist` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `barang`
+--
+ALTER TABLE `barang`
+  ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`Id_kategori`) REFERENCES `kategori` (`Id_kategori`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detail_barang`
+--
+ALTER TABLE `detail_barang`
+  ADD CONSTRAINT `detail_barang_ibfk_1` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_barang_ibfk_2` FOREIGN KEY (`Id_kategori`) REFERENCES `kategori` (`Id_kategori`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detail_kategori`
+--
+ALTER TABLE `detail_kategori`
+  ADD CONSTRAINT `detail_kategori_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_kategori_ibfk_2` FOREIGN KEY (`Id_kategori`) REFERENCES `kategori` (`Id_kategori`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_kategori_ibfk_3` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detail_pemesanan`
+--
+ALTER TABLE `detail_pemesanan`
+  ADD CONSTRAINT `detail_pemesanan_ibfk_1` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_pemesanan_ibfk_2` FOREIGN KEY (`Id_pemesanan`) REFERENCES `pemesanan` (`Id_pemesanan`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`Id_pemesanan`) REFERENCES `pemesanan` (`Id_pemesanan`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pengiriman`
+--
+ALTER TABLE `pengiriman`
+  ADD CONSTRAINT `pengiriman_ibfk_1` FOREIGN KEY (`Id_pembayaran`) REFERENCES `pembayaran` (`Id_pembayaran`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`Id_pengiriman`) REFERENCES `pengiriman` (`Id_pengiriman`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `toko`
+--
+ALTER TABLE `toko`
+  ADD CONSTRAINT `toko_ibfk_1` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `toko_ibfk_2` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`Id_barang`) REFERENCES `barang` (`Id_barang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

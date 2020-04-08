@@ -2,15 +2,32 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class auth extends CI_Controller {
-
+	
     
     public function login() 
     {
+		$status_login = $this->session->userdata('level_user');
+
+		if ($status_login == 'admin' ) {
+			$result = array(
+				'isi' => 'back/home'
+			);
+			$this->load->view('/back/head_footer', $result);
+			
+		} else if($status_login == 'user'){
+			$result = array(
+				'page' => 'front/profile'
+			);
+			$this->load->view('/front/template', $result);
+		}
 		
-        $result = array(
-			'page' => 'front/account'
-		);
-		$this->load->view('/front/template', $result);
+		else {
+			$result = array(
+				'page' => 'front/account'
+			);
+			$this->load->view('/front/template', $result);
+		}
+        
         
     }
 		//fungsi proses login
@@ -25,11 +42,19 @@ class auth extends CI_Controller {
 			{
 				$row = $query->row();
 				$params = array(
-					'Id' => $row->Id,
-					'level_user' => $row->level_user
+					'Id' => $row->id,
+					'level_user' => $row->level_user,
+					'nama' => $row->Nama,
+					'kontak' => $row->Kontak,
+					'email' => $row->Email,
+					'alamat' => $row->Alamat,
+					'username' => $row->Username,
+					'foto' => $row->Foto_user
 					// 'id_jadwal' => $row->id_jadwal
 				);
 				$this->session->set_userdata($params);
+				// var_dump($this->session->userdata('Id')); exit();
+				// var_dump($params); exit();
 				$level_user = $row->level_user;
 
 				// $this->session->set_flashdata('flash','Login Berhasil');	
@@ -40,12 +65,8 @@ class auth extends CI_Controller {
 				}		
 				else if($level_user == 'user'){
 					echo "<script type='text/javascript'>alert('Berhasil Login');</script>";
-					redirect(base_url('index.php/main/profile'),'refresh');      
-				;
+					redirect(base_url('index.php/account/profile'),'refresh');      
 				}
-				else{
-					$this->session->set_flashdata('auth','Level Tidak Diketahui');
-				}   
 			       
 				
 			}
@@ -79,5 +100,13 @@ class auth extends CI_Controller {
 			
 		}
 		
+	}
+
+	
+	public function logout()
+	{
+		$this->session->sess_destroy();
+
+		redirect(base_url('index.php/auth/login'),'refresh');
 	}
 }

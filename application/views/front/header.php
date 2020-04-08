@@ -264,7 +264,7 @@
         <!-- /.content-wrapper -->
 
         <!-- Start Footer Area -->
-        <footer class="htc__foooter__area" style="background: rgba(0, 0, 0, 0) url(<?= base_url('assets/images/bg/1.png')?>) no-repeat scroll center center / cover ;">j
+        <footer class="htc__foooter__area" style="background: rgba(0, 0, 0, 0) url(<?= base_url('assets/images/logo/cover.png')?>) no-repeat scroll center center / cover ;">j
             <div class="container">
                 <div class="row footer__container clearfix">
                     <!-- Start Single Footer Widget -->
@@ -272,44 +272,21 @@
                         <div class="ft__widget">
                             <div class="ft__logo">
                                 <a href="<?= base_url('index.php/main')?>">
-                                    <img src="<?= base_url('assets/images/logo/uniqlo.png')?>" alt="footer logo">
+                                    <img src="<?= base_url('assets/images/logo/LOGO.png')?>" alt="footer logo">
                                 </a>
-                            </div>
-                            <div class="footer__details">
-                                <p>Get 10% discount with notified about the latest news and updates.</p>
                             </div>
                         </div>
                     </div>
                     <!-- End Single Footer Widget -->
                     <!-- Start Single Footer Widget -->
-                    <div class="col-md-6 col-lg-3 col-sm-6 smb-30 xmt-30">
-                        <div class="ft__widget">
-                            <h2 class="ft__title">Newsletter</h2>
-                            <div class="newsletter__form">
-                                <div class="input__box">
-                                    <div id="mc_embed_signup">
-                                        <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
-                                            <div id="mc_embed_signup_scroll" class="htc__news__inner">
-                                                <div class="news__input">
-                                                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
-                                                </div>
-                                                <div class="clearfix subscribe__btn"><input type="submit" value="Send" name="subscribe" id="mc-embedded-subscribe" class="bst__btn btn--white__color">
 
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>        
-                            </div>
-                        </div>
-                    </div>
                     <!-- End Single Footer Widget -->
                     <!-- Start Single Footer Widget -->
                     <div class="col-md-6 col-lg-3 col-sm-6 smt-30 xmt-30">
                         <div class="ft__widget contact__us">
-                            <h2 class="ft__title">Contact Us</h2>
+                            <h2 class="ft__title">Customer Care </h2>
                             <div class="footer__inner">
-                                <p> 319 Clematis St. <br> Suite 100 WPB, FL 33401 </p>
+                                <p> customer.care@trusted.com </p>
                             </div>
                         </div>
                     </div>
@@ -334,8 +311,8 @@
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                             <div class="copyright__inner">
                                 <div class="copyright">
-                                    <p>© 2018 <a href="https://freethemescloud.com/" target="_blank">Free themes Cloud</a>
-                                    All Right Reserved.</p>
+                                    <p>© trusted.id 2019<a  target="_blank"></a>
+                                    Hak Cipta Dilindungi.</p>
                                 </div>
                                 <ul class="footer__menu">
                                     <li><a href="<?= base_url('index.php/main')?>">Home</a></li>
